@@ -5,7 +5,7 @@ from enum import IntEnum
 
 from typing_extensions import TypeGuard
 
-from chemistry.elements.element import ElementMeta
+from chemistry.elements.element import Element
 from chemistry.utils import superscript
 
 
@@ -19,7 +19,7 @@ class SubShellType(IntEnum):
         return str(self.name).lower()
 
 
-@dataclass
+@dataclass(frozen=True)
 class SubShell:
     type: SubShellType
     principal: int
@@ -86,7 +86,7 @@ class ElectronConfiguration:
         return sum(self.config.values())
 
     @classmethod
-    def from_element_meta(cls, meta: ElementMeta) -> ElectronConfiguration:
+    def from_element_meta(cls, meta: Element) -> ElectronConfiguration:
         config = {}
         electrons_left = meta.atomic_number
         for subshell in cls.ENERGY_ORDERINGS:
