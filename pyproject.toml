@@ -1,0 +1,26 @@
+[tool.black]
+line-length=79
+skip-magic-trailing-comma=true
+
+[tool.poetry]
+name = "chemistry"
+version = "0.1.0"
+description = ""
+authors = ["CircuitSacul <circuitsacul@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+typing-extensions = "^4.3.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.8.0"
+isort = "^5.10.1"
+nox = "^2022.8.7"
+flake8 = "^5.0.4"
+mypy = "^0.971"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
