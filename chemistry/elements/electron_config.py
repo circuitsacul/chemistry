@@ -2,11 +2,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import IntEnum
+from typing import TYPE_CHECKING
 
 from typing_extensions import TypeGuard
 
-from chemistry.elements.element import Element
 from chemistry.utils import superscript
+
+if TYPE_CHECKING:
+    from chemistry.elements.element import Element
 
 
 class SubShellType(IntEnum):
@@ -129,9 +132,10 @@ class ElectronConfiguration:
     def __repr__(self) -> str:
         return repr(self.config)
 
-    def _pretty(self) -> str:
+    def pretty(self, actual_exp: bool = True) -> str:
         return "".join(
-            str(subshell) + superscript(str(electrons))
+            str(subshell)
+            + (superscript(str(electrons)) if actual_exp else f"^{electrons}")
             for subshell, electrons in sorted(
                 self.config.items(),
                 key=lambda v: self.ENERGY_ORDERINGS.index(v[0]),
@@ -139,4 +143,4 @@ class ElectronConfiguration:
         )
 
     def __str__(self) -> str:
-        return self._pretty()
+        return self.pretty()
